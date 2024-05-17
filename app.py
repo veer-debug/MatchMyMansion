@@ -26,6 +26,36 @@ with open('Jupiter_works/dataset/pipeline1.pkl','rb') as file:
 status =False
 login1=True
 
+# Recommendation function=============
+with open('Jupiter_works/dataset/cosine_sim1.pkl','rb') as file:
+    cosine_sim1 = pickle.load(file)
+with open('Jupiter_works/dataset/cosine_sim2.pkl','rb') as file:
+    cosine_sim2 = pickle.load(file)
+with open('Jupiter_works/dataset/cosine_sim3.pkl','rb') as file:
+    cosine_sim3 = pickle.load(file)
+
+with open('Jupiter_works/dataset/Location.pkl','rb') as file:
+    location_df = pickle.load(file)
+
+def recommend_properties(property_name, top_n=5):
+    
+    cosine_sim_matrix = 0.5*cosine_sim1 + 0.8*cosine_sim2 + cosine_sim3
+    # cosine_sim_matrix = cosine_sim3
+    
+    # Get the similarity scores for the property using its name as the index
+    sim_scores = list(enumerate(cosine_sim_matrix[location_df.index.get_loc(property_name)]))
+    
+    # Sort properties based on the similarity scores
+    sorted_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    
+    # Get the indices and scores of the top_n most similar properties
+    top_indices = [i[0] for i in sorted_scores[1:top_n+1]]
+    top_scores = [i[1] for i in sorted_scores[1:top_n+1]]
+    
+    # Retrieve the names of the top properties using the indices
+    top_properties = location_df.index[top_indices].tolist()
+   
+    return top_properties
 
 app=Flask(__name__)
 
@@ -83,11 +113,17 @@ def logout():
    
     return home()
 
+@app.route('/add-to-cart')
+def aad_to_cart():
+    return render_template('cart.html')
+
+
 @app.route('/cart')
 def cart():
+    global status
     
    
-    return render_template('cart.html')
+    return render_template('cart.html',status=status)
 
 
 
@@ -178,7 +214,89 @@ def recomendation():
     user_bathroom=df['bathroom'].values[itr]
     user_rate=int((user_price*10000000)/user_area)
     
-    return render_template('recomendation.html',user_img=user_img,user_id=itr,user_price=user_price,user_sector=user_sector,user_area=user_area,status=status,user_bathroom=user_bathroom,user_bedroom=user_bedroom,user_rate=user_rate,login=status)
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    # =================================
+    socity=df[df['id']==itr].society
+    results=recommend_properties(socity)
+    # result 1 
+    r1=df[df['socity']==results[0]]
+    r1_socity=results[0]
+    r1_id=r1['id'].values
+    r1_img=r1['img'].values
+    r1_price=r1['price'].values
+    r1_sector=r1['sector'].values
+    r1_area=r1['built_up_area'].values
+    r1_bedroom=r1['bedRoom'].values
+    r1_bathroom=r1['bathroom'].values
+    r1_rate=np.round((10000000*r1['price'])/r1['built_up_area'],0).values
+    r1_n=r1.shape[0]
+    if r1.shape[0]>5:
+       r1_n=5    
+
+
+    # result 2
+    r2=df[df['socity']==results[1]]
+    r2_socity=results[1]
+    r2_id=r2['id'].values
+    r2_img=r2['img'].values
+    r2_price=r2['price'].values
+    r2_sector=r2['sector'].values
+    r2_area=r2['built_up_area'].values
+    r2_bedroom=r2['bedRoom'].values
+    r2_bathroom=r2['bathroom'].values
+    r2_rate=np.round((10000000*r2['price'])/r2['built_up_area'],0).values
+    r2_n=r2.shape[0]  
+    if r2.shape[0]>5:
+       r2_n=5
+
+    # result 3
+    r3=df[df['socity']==results[2]]
+    r3_socity=results[2]
+    r3_id=r3['id'].values
+    r3_img=r3['img'].values
+    r3_price=r3['price'].values
+    r3_sector=r3['sector'].values
+    r3_area=r3['built_up_area'].values
+    r3_bedroom=r3['bedRoom'].values
+    r3_bathroom=r3['bathroom'].values
+    r3_rate=np.round((10000000*r3['price'])/r3['built_up_area'],0).values
+    r3_n=r3.shape[0] 
+    if r3.shape[0]>5:
+       r3_n=5
+
+    # result 4
+    r4=df[df['socity']==results[3]]
+    r4_socity=results[3]
+    r4_id=r4['id'].values
+    r4_img=r4['img'].values
+    r4_price=r4['price'].values
+    r4_sector=r4['sector'].values
+    r4_area=r4['built_up_area'].values
+    r4_bedroom=r4['bedRoom'].values
+    r4_bathroom=r4['bathroom'].values
+    r4_rate=np.round((10000000*r4['price'])/r4['built_up_area'],0).values
+    r4_n=r4.shape[0] 
+    if r4.shape[0]>5:
+       r4_n=5
+
+    # result 5
+    r5=df[df['socity']==results[4]]
+    r5_socity=results[4]
+    r5_id=r5['id'].values
+    r5_img=r5['img'].values
+    r5_price=r5['price'].values
+    r5_sector=r5['sector'].values
+    r5_area=r5['built_up_area'].values
+    r5_bedroom=r5['bedRoom'].values
+    r5_bathroom=r5['bathroom'].values
+    r5_rate=np.round((10000000*r5['price'])/r5['built_up_area'],0).values
+    r5_n=r5.shape[0]
+    if r5.shape[0]>5:
+       r5_n=5
+
+    
+    return render_template('recomendation.html',user_img=user_img,user_id=itr,user_price=user_price,user_sector=user_sector,user_area=user_area,status=status,user_bathroom=user_bathroom,user_bedroom=user_bedroom,user_rate=user_rate,login=status, r1_id=r1_id,r1_img=r1_img,r1_price=r1_price,r1_sector=r1_sector,r1_area=r1_area,r1_bedroom=r1_bedroom,r1_bathroom=r1_bathroom,r1_rate=r1_rate,r1_n=r1_n,r1_socity=r1_socity , r2_id=r2_id,r2_img=r2_img,r2_price=r2_price,r2_sector=r2_sector,r2_area=r2_area,r2_bedroom=r2_bedroom,r2_bathroom=r2_bathroom,r2_rate=r2_rate,r2_n=r2_n ,r2_socity=r2_socity, r3_id=r3_id,r3_img=r3_img,r3_price=r3_price,r3_sector=r3_sector,r3_area=r3_area,r3_bedroom=r3_bedroom,r3_bathroom=r3_bathroom,r3_rate=r3_rate,r3_n=r3_n ,r3_socity=r3_socity, r4_id=r4_id,r4_img=r4_img,r4_price=r4_price,r4_sector=r4_sector,r4_area=r4_area,r4_bedroom=r4_bedroom,r4_bathroom=r4_bathroom,r4_rate=r4_rate,r4_n=r4_n ,r4_socity=r4_socity, r5_id=r5_id,r5_img=r5_img,r5_price=r5_price,r5_sector=r5_sector,r5_area=r5_area,r5_bedroom=r5_bedroom,r5_bathroom=r5_bathroom,r5_rate=r5_rate,r5_n=r5_n,r5_socity=r5_socity)
 
 @app.route('/contect')
 def about():

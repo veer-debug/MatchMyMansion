@@ -25,11 +25,11 @@
         <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">About</a>
 
         {%if login==True%}
-        <a href="/profile" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">{{user}}</a>
-        <a href="/cart" class="flex title-font font-medium items-center text-gray-900 mb-1 md:mb-0">
-          <img src="static/shopping.png" alt="Logo" class="w-10 h-8">
-        </a>
-        {% endif %}
+            <a href="/profile" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">{{user}}</a>
+            <a href="/cart" class="flex title-font font-medium items-center text-gray-900 mb-1 md:mb-0 hover:-translate-y-1 hover:scale-110 duration-300">
+              <img src="static/shopping.png" alt="Logo" class="w-10 h-8">
+            </a>
+            {% endif %}
         {%if login==False%}
         <a href="/login" class="text-white bg-indigo-500 border-0  px-3 focus:outline-none hover:hover:-translate-y-1 hover:scale-110  duration-300 rounded text-lg ">Login</a>
         {% endif %}
@@ -42,55 +42,28 @@
   {%if status==False%}
   
 
-  <section class="text-gray-600 body-font -mb-20 mt-[120px] blur-md">
-    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-      <div class="lg:max-w-lg lg:w-full md:w-1 w-5/6 mb-10 md:mb-0">
-        {% if img_link %}
-        <img class="object-cover object-center rounded w-full h-full" alt="hero" src="{{ img_link }}">
-        {% endif %}
-    </div>
-    
-      <div
-        class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-        <h1 class="title-font sm:text-6xl text-6xl ml-[130px] mb-4 font-medium text-orange-500 ">Predicted Price Range
-        </h1>
-        <h1 class="title-font sm:text-5xl text-5xl ml-[200px] mb-8 font-medium text-neutral-50"><span>&#8377;</span> --
-          <span>&#8377;</span> --</h1>
-        <p class="mb-8 leading-relaxed text-xl text-green-600">As per your requirement you can drop your dream property in the estimated range, there are many properties available in this range if you want to see then scroll down for the list of properties which are available for you.</p>
-      </div>
-    </div>
-  </section>
-
-  
-  <!-- blur Recomendation -->
-  
   <section class="text-black-400 body-font">
     <div class="container px-5 py-5 mx-auto">
         <div class="flex flex-wrap w-full mb-20">
             <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-              <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50">For unlock you have to signin </h1>
-              <a href="/login" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:hover:-translate-y-1 hover:scale-110  duration-300 rounded text-lg ">Submit</a>
-            </div>
-              
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50 blur-md">Gurgaon real estate Mansions in predicted range !</h1>
-                <div class="h-1 w-20 bg-indigo-500 rounded blur-md "></div>
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50">Recomended property for you !</h1>
+                <div class="h-1 w-20 bg-indigo-500 rounded"></div>
             </div>
             <!-- <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p> -->
         </div>
-      <form action="/signin" method="post">
+      <form action="/login" method="post">
         <div id="showContentBtn" class="flex flex-wrap -m-10 scale-effect blur-md">
-            {% for i in range(0, n) %}
+            {% for i in range(0, 100) %}
             <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{i}}">
                 <div class="bg-gray-100 p-6 rounded-lg hover:text-Stone-950 transition ease-in-out delay-20 bg-blue-500 hover:-translate-y-1 hover:scale-110 duration-300">
-                    <img class="h-40 rounded w-full object-cover object-center mb-6" src="{{ img_list[i] }}" alt="content">
-                    <!-- <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">ID-{{ index_id[i] }}</h3> -->
-                    <h2 class="text-lg text-green-600 font-medium title-font mb-1"><span>&#8377;</span> --- Cr.</h2>
+                    <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://github.com/veer-debug/music/blob/main/pridict_image.jpg?raw=true" alt="content">
+                    <h2 class="text-lg text-green-600 font-medium title-font mb-1"><span>&#8377;</span>  Cr.</h2>
                     <div class="grid grid-cols-2 gap-2">
-                        <p class="leading-relaxed text-base col-span-2 text-xl">Gurgaon , sector </p>
-                        <p class="leading-relaxed text-base">Area- -- sqft. </p>
-                        <p class="leading-relaxed text-base"><span>&#8377;</span>--/sqft.</p>
-                        <p class="leading-relaxed text-base">Bedroom- --</p>
-                        <p class="leading-relaxed text-base">Bathroom- --</p>
+                        <p class="leading-relaxed text-base col-span-2 text-xl">Gurgaon ,  </p>
+                        <p class="leading-relaxed text-base">Area- sqft. </p>
+                        <p class="leading-relaxed text-base"><span>&#8377;</span>/sqft.</p>
+                        <p class="leading-relaxed text-base">Bedroom-</p>
+                        <p class="leading-relaxed text-base">Bathroom-</p>
                     </div>
                 </div>
             </button>
@@ -100,7 +73,7 @@
     
       
     </div>
-</section>
+  </section>
 {%endif%}
 
 

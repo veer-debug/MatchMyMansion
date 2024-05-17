@@ -22,11 +22,11 @@
         <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">About</a>
 
         {%if login==True%}
-        <a href="/profile" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">{{user}}</a>
-        <a href="/cart" class="flex title-font font-medium items-center text-gray-900 mb-1 md:mb-0">
-          <img src="static/shopping.png" alt="Logo" class="w-10 h-8">
-        </a>
-        {% endif %}
+            <a href="/profile" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">{{user}}</a>
+            <a href="/cart" class="flex title-font font-medium items-center text-gray-900 mb-1 md:mb-0 hover:-translate-y-1 hover:scale-110 duration-300">
+              <img src="static/shopping.png" alt="Logo" class="w-10 h-8">
+            </a>
+            {% endif %}
         {%if login==False%}
         <a href="/login" class="text-white bg-indigo-500 border-0  px-3 focus:outline-none hover:hover:-translate-y-1 hover:scale-110  duration-300 rounded text-lg ">Login</a>
         {% endif %}
