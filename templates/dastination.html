@@ -14,20 +14,25 @@
 <body class="bg-neutral-900 ">
   <header class="text-zinc-950 body-font   bg-gray-900 h-[120px] mt-0 fixed top-0 w-full z-10">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center -my-6">
-      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <a href="/" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
         <img src="static/logo.png" alt="Logo" class="w-15 h-12">
         <span class="ml-3 text-xl text-neutral-50">MatchMyMansion</span>
       </a>
       <nav class="md:ml-auto  flex flex-wrap items-center text-base justify-center text-neutral-50">
-        <a href="/"
-          class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Home</a>
-        <a href="/prediction_form"
-          class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Prediction</a>
-        <a href="/contect"
-          class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Contect
-          us</a>
-        <a href="/"
-          class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">About</a>
+        <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Home</a>
+        <a href="/prediction_form" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Prediction</a>
+        <a href="/contect" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Contect us</a>
+        <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">About</a>
+
+        {%if login==True%}
+        <a href="/profile" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">{{user}}</a>
+        <a href="/cart" class="flex title-font font-medium items-center text-gray-900 mb-1 md:mb-0">
+          <img src="static/shopping.png" alt="Logo" class="w-10 h-8">
+        </a>
+        {% endif %}
+        {%if login==False%}
+        <a href="/login" class="text-white bg-indigo-500 border-0  px-3 focus:outline-none hover:hover:-translate-y-1 hover:scale-110  duration-300 rounded text-lg ">Login</a>
+        {% endif %}
       </nav>
     </div>
   </header>
@@ -64,9 +69,8 @@
         <div class="flex flex-wrap w-full mb-20">
             <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
               <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50">For unlock you have to signin </h1>
-              <div class="flex justify-center"> <!-- Center the button -->
-                <a href="/login" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:hover:-translate-y-1 hover:scale-110  duration-300 rounded text-lg ">Submit</a>
-              </div>
+              <a href="/login" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:hover:-translate-y-1 hover:scale-110  duration-300 rounded text-lg ">Submit</a>
+            </div>
               
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50 blur-md">Gurgaon real estate Mansions in predicted range !</h1>
                 <div class="h-1 w-20 bg-indigo-500 rounded blur-md "></div>

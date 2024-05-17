@@ -7,6 +7,7 @@
       src="https://kit.fontawesome.com/64d58efce2.js"
       crossorigin="anonymous"
     ></script>
+    <link rel="icon" type="image/x-icon" href="static/logo.png">
     <link rel="stylesheet" href="static/login.css" />
     <title>Sign in & Sign up Form</title>
   </head>
@@ -22,7 +23,7 @@
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" value="u_password" placeholder="Password" />
+              <input type="password" name="u_password" placeholder="Password" />
             </div>
             <input type="submit" value="Login" class="btn solid" />
             <p class="social-text">Or Sign in with social platforms</p>
@@ -41,7 +42,7 @@
               </a>
             </div>
           </form>
-          <form action="/c_login" class="sign-up-form" method="post">
+          <form action="/sign-up" class="sign-up-form" method="post">
             <h2 class="title">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>

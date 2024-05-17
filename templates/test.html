@@ -20,6 +20,15 @@
             <a href="/prediction_form" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Prediction</a>
             <a href="/contect" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Contect us</a>
             <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">About</a>
+            <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">
+              <img src="https://www.flaticon.com/free-icon/shopping-cart_3644075" alt="not">
+            </a>
+            {%if login%}
+            <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">{{user}}</a>
+            {%endif%}
+            {%if login==False%}
+            <a href="/login" class="text-white bg-indigo-500 border-0  px-4 focus:outline-none hover:hover:-translate-y-1 hover:scale-110  duration-300 rounded text-lg ">Login</a>
+            {%endif%}
           </nav>
         </div>
       </header>

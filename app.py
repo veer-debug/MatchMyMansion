@@ -4,12 +4,7 @@ import pickle
 import numpy as np
 
 
-
-# home=pd.read_csv('home_data.csv')
-# home['link'][0]='https://www.openpr.com/wiki/images/642-400x300_4828'
-# img_list=home['link'].values
-
-# ========================================================================
+# Load datasets
 
 
 with open('Jupiter_works/dataset/df.pkl','rb') as file:
@@ -17,15 +12,9 @@ with open('Jupiter_works/dataset/df.pkl','rb') as file:
 
 img_list=df.img.values
 img_list[0]='https://www.openpr.com/wiki/images/642-400x300_4828'
-
-
-
-
 # built_up_area = float(st.number_input('Built Up Area'))
-
 servant_room = [0.0, 1.0]
 store_room = [0.0, 1.0]
-
 furnishing_type = sorted(df['furnishing_type'].unique().tolist())
 luxury_category =sorted(df['luxury_category'].unique().tolist())
 floor_category = sorted(df['floor_category'].unique().tolist())
@@ -34,16 +23,15 @@ floor_category = sorted(df['floor_category'].unique().tolist())
 with open('Jupiter_works/dataset/pipeline1.pkl','rb') as file:
     pipeline = pickle.load(file)
 
-
+status =False
+login1=True
 
 
 app=Flask(__name__)
 
-status=False
-
-
 @app.route('/')
 def home():
+    global status
     index_id=df['id'].values
     # index_img=df['img'].values
     index_price=df['price'].values
@@ -53,7 +41,7 @@ def home():
     index_bathroom=df['bathroom'].values
     index_rate=np.round((10000000*df['price'])/df['built_up_area'],0).values
     n=df.shape[0]
-    return render_template('index.html',img_list=img_list,n=n,index_area=index_area,index_id=index_id,index_bedroom=index_bedroom,index_price=index_price,index_sector=index_sector,index_rate=index_rate,index_bathroom=index_bathroom)
+    return render_template('index.html',img_list=img_list,n=n,index_area=index_area,index_id=index_id,index_bedroom=index_bedroom,index_price=index_price,index_sector=index_sector,index_rate=index_rate,index_bathroom=index_bathroom,login=status,user="User")
 
 
 
@@ -65,11 +53,42 @@ def login():
     return render_template('login.html')
 @app.route('/c_login' , methods=['GET','POST'])
 def c_login():
-    status=True   
-    return  prediction()
-@app.route('/signup')
+    global status
+    u_name=request.form['u_name']
+    u_password=request.form.get('u_password')
+    status = True
+    return  home()
+@app.route('/sign-up',methods=['GET','POST'])
 def signup():
-    return render_template('index.html')
+    u_name=request.form['u_name']
+    u_email=request.form['u_email']
+    u_password=request.form['u_password']
+    print(u_name," ",u_email," ",u_password)
+    return render_template('login.html')
+
+@app.route('/profile')
+def profile():
+    u_name='veer'
+    u_email="ranveerk087@gmail.com"
+    u_password='12345'
+    u_date="10/10/2023"
+    # print(u_name," ",u_email," ",u_password)
+    return render_template('profile.html',u_name=u_name,u_email=u_email,u_password=u_password,u_date=u_date)
+
+
+@app.route('/logout')
+def logout():
+    global status
+    status=False
+   
+    return home()
+
+@app.route('/cart')
+def cart():
+    
+   
+    return render_template('cart.html')
+
 
 
 
@@ -82,11 +101,13 @@ def signup():
 
 @app.route('/prediction', methods=['POST'])
 def redirect_page():
+    global status
     img_link = request.form.get('button_value')
-    return render_template('dastination.html',img_link=img_link,status=status)
+    return render_template('dastination.html',img_link=img_link,status=status,login=status)
 
 @app.route('/regration_prediction',methods=['POST','GET'])
 def regration_prediction():
+    global status
     img_link="https://github.com/veer-debug/music/blob/main/pridict_image.jpg?raw=true"
     low=''
     high=''
@@ -127,10 +148,11 @@ def regration_prediction():
         index_bathroom=pred_df['bathroom'].values
         index_rate=np.round((10000000*pred_df['price'])/pred_df['built_up_area'],0).values
         n=pred_df.shape[0]    
-    return render_template('dastination.html',low=low,high=high,status=status,img_link=img_link,id=id,n=n,index_id=index_id,img_list=index_img,index_price=index_price,index_sector=index_sector,index_area=index_area,index_bedroom=index_bedroom,index_bathroom=index_bathroom,index_rate=index_rate)
+    return render_template('dastination.html',low=low,high=high,status=status,img_link=img_link,id=id,n=n,index_id=index_id,img_list=index_img,index_price=index_price,index_sector=index_sector,index_area=index_area,index_bedroom=index_bedroom,index_bathroom=index_bathroom,index_rate=index_rate,login=status)
 
 @app.route('/prediction_form')
 def prediction():
+    global status
     id=df['id']
     property_type = ['flat','house']
     sector =sorted(df['sector'].unique().tolist())
@@ -139,11 +161,12 @@ def prediction():
     balcony =sorted(df['balcony'].unique().tolist())
     property_age =sorted(df['agePossession'].unique().tolist())
 
-    return render_template('prediction_form.html',property_type=property_type,property_age=property_age,sector=sector,bathroom=bathroom,balcony=balcony,servant_room=servant_room,store_room=store_room,furnishing_type=furnishing_type,luxury_category=luxury_category,floor_category=floor_category,bedrooms=bedrooms)
+    return render_template('prediction_form.html',property_type=property_type,property_age=property_age,sector=sector,bathroom=bathroom,balcony=balcony,servant_room=servant_room,store_room=store_room,furnishing_type=furnishing_type,luxury_category=luxury_category,floor_category=floor_category,bedrooms=bedrooms,login=status)
 
 
 @app.route('/recomendation',methods=['POST','GET'])
 def recomendation():
+    global status
     
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     itr=int(request.form['itr'])
@@ -155,11 +178,12 @@ def recomendation():
     user_bathroom=df['bathroom'].values[itr]
     user_rate=int((user_price*10000000)/user_area)
     
-    return render_template('recomendation.html',user_img=user_img,user_id=itr,user_price=user_price,user_sector=user_sector,user_area=user_area,status=status,user_bathroom=user_bathroom,user_bedroom=user_bedroom,user_rate=user_rate)
+    return render_template('recomendation.html',user_img=user_img,user_id=itr,user_price=user_price,user_sector=user_sector,user_area=user_area,status=status,user_bathroom=user_bathroom,user_bedroom=user_bedroom,user_rate=user_rate,login=status)
 
 @app.route('/contect')
 def about():
-    return render_template('contect.html')
+    global status
+    return render_template('contect.html',login=status)
 
 
 app.run(debug=True)
