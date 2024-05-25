@@ -309,7 +309,7 @@ form.sign-in-form {
   }
 
   .image {
-    width: 200px;
+    width: 100px;
     transition: transform 0.9s ease-in-out;
     transition-delay: 0.6s;
   }
@@ -379,8 +379,11 @@ form.sign-in-form {
   }
 
   .image {
-    display: none;
-  }
+    display: inline-block;
+    width: 50%;
+    
+}
+
   .panel .content {
     padding: 0.5rem 1rem;
   }

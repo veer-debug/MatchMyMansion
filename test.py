@@ -6,23 +6,8 @@ import pickle
 import numpy as np
 
 
-app=Flask(__name__)
+from login import User_othintaction
 
-status=False
+t=User_othintaction()
 
-
-@app.route('/')
-def login():
-    return render_template('login.html')
-
-
-
-@app.route('/c_login', methods=['POST','GET'])
-def c_login():
-    u_name=request.form['u_name']
-    
-
-    return u_name
-    
-
-app.run(debug=True)
+print(t.login('sbs123','1234'))
