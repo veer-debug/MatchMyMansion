@@ -1,7 +1,7 @@
 from datetime import date
 import mysql.connector
 
-date=date.today()
+today_date = date.today()
 
 conn = mysql.connector.connect(
     host="localhost",
@@ -9,24 +9,43 @@ conn = mysql.connector.connect(
     password="",
     database="MatchMyMantion"
 )
-class Cart :
-    def add_to_cart(user_name,product_id):
 
+class Cart:
+    @staticmethod
+    def add_to_cart(username, product_id):
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO User_cart (user_name,product_id) VALUES (%s,%s)", (user_name,product_id))
-        conn.commit()
-        return True
-    
-    def user_cart_data(user_name):
-        cursor=conn.cursor()
-        cursor.execute("select*from User_cart where user_name=%s",(user_name,))
+        
+        # Get user_id for the given username
+        cursor.execute("SELECT id FROM User_data WHERE user_name = %s", (username,))
         user = cursor.fetchone()
+
         if user:
-            row_list = [list(row) for row in user]
-            return row_list
+            user_id = user[0]
+
+            # Insert wishlist items
+            cursor.execute("INSERT INTO User_wishlist (user_id, product_id) VALUES (%s, %s)", (user_id, product_id))
+
+            # Commit the wishlist insert
+            conn.commit()
+            return True
         else:
-            return None
+            return False
+        cursor.close()
 
+    @staticmethod
+    def user_cart(user_name):
+        p_id = []
+        cursor = conn.cursor()
 
-       
+        # Query to fetch wishlist for the given username
+        cursor.execute("""SELECT u.user_name, w.product_id 
+                          FROM User_data u JOIN User_wishlist w 
+                          ON u.id = w.user_id WHERE u.user_name = %s """, (user_name,))
 
+        # Fetch and print the results
+        wishlist_items = cursor.fetchall()
+        for item in wishlist_items:
+            p_id.append(item[1])
+        cursor.close()
+        return p_id
+         

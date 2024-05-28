@@ -115,7 +115,7 @@
       <form action="/recomendation" method="post">
         <div id="showContentBtn" class="flex flex-wrap -m-10 scale-effect">
             {% for i in range(0, n) %}
-            <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{i}}">
+            <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{index_id[i]}}">
                 <!-- <input type="hidden" name="user_img_{{ i }}" value="{{ img_list[i] }}">
                 <input type="hidden" name="user_id_{{ i }}" value="{{ index_id[i] }}">
                 <input type="hidden" name="user_area_{{ i }}" value="{{ index_area[i] }}">

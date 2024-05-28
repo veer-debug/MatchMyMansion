@@ -13,12 +13,11 @@ user=User_othintaction()
 # Load datasets
 
 
-with open('Jupiter_works/dataset/df.pkl','rb') as file:
-    df = pickle.load(file)
+# with open('Jupiter_works/dataset/df.pkl','rb') as file:
+#     df = pickle.load(file)
+df=pd.read_csv('Jupiter_works/dataset/final_df.csv')
 
 img_list=df.img.values
-img_list[0]='https://www.openpr.com/wiki/images/642-400x300_4828'
-# built_up_area = float(st.number_input('Built Up Area'))
 servant_room = [0.0, 1.0]
 store_room = [0.0, 1.0]
 furnishing_type = sorted(df['furnishing_type'].unique().tolist())
@@ -79,12 +78,7 @@ def home():
     index_bathroom=df['bathroom'].values
     index_rate=np.round((10000000*df['price'])/df['built_up_area'],0).values
     n=df.shape[0]
-    return render_template('index.html',img_list=img_list,n=n,index_area=index_area,index_id=index_id,index_bedroom=index_bedroom,index_price=index_price,index_sector=index_sector,index_rate=index_rate,index_bathroom=index_bathroom,login=status,user=user_name)
-
-
-
-
-
+    return render_template('index.html',img_list=img_list,n=110,index_area=index_area,index_id=index_id,index_bedroom=index_bedroom,index_price=index_price,index_sector=index_sector,index_rate=index_rate,index_bathroom=index_bathroom,login=status,user=user_name,status=status)
 
 @app.route('/login')
 def login(): 
@@ -129,27 +123,45 @@ def logout():
    
     return home()
 
-@app.route('/add-to-cart')
+@app.route('/add-to-cart',methods=['POST'])
 def aad_to_cart():
-    id=request.form['u_id']
-    user_cart.add_to_cart(user_name=user_name,product_id=id)
-    return render_template('cart.html')
+    id=int(request.form['id'])
+    print(type(user_name))
+    user_cart.add_to_cart(username=user_name,product_id=id)
+    return cart()
 
 
 @app.route('/cart')
 def cart():
+    # index_id=df['id'].values
+    # # index_img=df['img'].values
+    # index_price=df['price'].values
+    # index_sector=df['sector'].values
+    # index_area=df['built_up_area'].values
+    # index_bedroom=df['bedRoom']
+    # index_bathroom=df['bathroom'].values
+    # index_rate=np.round((10000000*df['price'])/df['built_up_area'],0).values
+    # n=df.shape[0]
     global status
-    return render_template('cart.html',status=status)
+    index_id=user_cart.user_cart(user_name=user_name)
+    index_img=[]
+    index_price=[]
+    index_sector=[]
+    index_area=[]
+    index_bedroom=[]
+    index_bathroom=[]
+    index_rate=[]
+    for i in index_id:
+        index_img.append(df.img.values[i-1])
+        index_price.append(df.price.values[i-1])
+        index_sector.append(df.sector.values[i-1])
+        index_area.append(df.built_up_area.values[i-1])
+        index_bedroom.append(df.bedRoom.values[i-1])
+        index_bathroom.append(df.bathroom.values[i-1])
+        index_rate.append(np.round((10000000*df['price'].values[i])/df['built_up_area'].values[i],0))
+    n=len(index_id)
 
-
-
-
-
-
-
-
-
-
+    return render_template('cart.html',img_list=index_img,n=n,index_area=index_area,index_id=index_id,index_bedroom=index_bedroom,index_price=index_price,index_sector=index_sector,index_rate=index_rate,index_bathroom=index_bathroom,user=user_name,status=status)
 
 @app.route('/prediction', methods=['POST'])
 def redirect_page():
@@ -225,21 +237,25 @@ def recomendation():
     
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     itr=int(request.form['itr'])
-    user_img=df['img'].values[itr]
-    user_price=df['price'].values[itr]
-    user_sector=df['sector'].values[itr]
-    user_area=df['built_up_area'].values[itr]
-    user_bedroom=df['bedRoom'].values[itr]
-    user_bathroom=df['bathroom'].values[itr]
+    user_img=df[df['id']==itr].img.values[0]
+    user_price=df[df['id']==itr].price.values[0]
+    user_sector=df[df['id']==itr].sector.values[0]
+    user_area=df[df['id']==itr].built_up_area.values[0]
+    user_bedroom=df[df['id']==itr].bedRoom.values[0]
+    user_bathroom=df[df['id']==itr].bathroom.values[0]
+    user_society=df[df['id']==itr].society.values[0]
+    user_location=df[df['id']==itr].near_locatio.values[0]
+    location =user_location.strip("{}").replace("'", "")
     user_rate=int((user_price*10000000)/user_area)
     
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # =================================
-    socity=df[df['id']==itr].society
+    socity=df[df['id']==itr].society.values[0]
     results=recommend_properties(socity)
+
     # result 1 
-    r1=df[df['socity']==results[0]]
+    r1=df[df['society']==results[0]]
     r1_socity=results[0]
     r1_id=r1['id'].values
     r1_img=r1['img'].values
@@ -250,12 +266,12 @@ def recomendation():
     r1_bathroom=r1['bathroom'].values
     r1_rate=np.round((10000000*r1['price'])/r1['built_up_area'],0).values
     r1_n=r1.shape[0]
-    if r1.shape[0]>5:
-       r1_n=5    
+    if r1.shape[0]>4:
+       r1_n=4    
 
 
     # result 2
-    r2=df[df['socity']==results[1]]
+    r2=df[df['society']==results[1]]
     r2_socity=results[1]
     r2_id=r2['id'].values
     r2_img=r2['img'].values
@@ -266,11 +282,11 @@ def recomendation():
     r2_bathroom=r2['bathroom'].values
     r2_rate=np.round((10000000*r2['price'])/r2['built_up_area'],0).values
     r2_n=r2.shape[0]  
-    if r2.shape[0]>5:
-       r2_n=5
+    if r2.shape[0]>4:
+       r2_n=4
 
     # result 3
-    r3=df[df['socity']==results[2]]
+    r3=df[df['society']==results[2]]
     r3_socity=results[2]
     r3_id=r3['id'].values
     r3_img=r3['img'].values
@@ -281,11 +297,11 @@ def recomendation():
     r3_bathroom=r3['bathroom'].values
     r3_rate=np.round((10000000*r3['price'])/r3['built_up_area'],0).values
     r3_n=r3.shape[0] 
-    if r3.shape[0]>5:
-       r3_n=5
+    if r3.shape[0]>4:
+       r3_n=4
 
     # result 4
-    r4=df[df['socity']==results[3]]
+    r4=df[df['society']==results[3]]
     r4_socity=results[3]
     r4_id=r4['id'].values
     r4_img=r4['img'].values
@@ -296,11 +312,11 @@ def recomendation():
     r4_bathroom=r4['bathroom'].values
     r4_rate=np.round((10000000*r4['price'])/r4['built_up_area'],0).values
     r4_n=r4.shape[0] 
-    if r4.shape[0]>5:
-       r4_n=5
+    if r4.shape[0]>4:
+       r4_n=4
 
     # result 5
-    r5=df[df['socity']==results[4]]
+    r5=df[df['society']==results[4]]
     r5_socity=results[4]
     r5_id=r5['id'].values
     r5_img=r5['img'].values
@@ -311,11 +327,11 @@ def recomendation():
     r5_bathroom=r5['bathroom'].values
     r5_rate=np.round((10000000*r5['price'])/r5['built_up_area'],0).values
     r5_n=r5.shape[0]
-    if r5.shape[0]>5:
-       r5_n=5
+    if r5.shape[0]>4:
+       r5_n=4
 
     
-    return render_template('recomendation.html',user_img=user_img,user_id=itr,user_price=user_price,user_sector=user_sector,user_area=user_area,status=status,user_bathroom=user_bathroom,user_bedroom=user_bedroom,user_rate=user_rate,login=status, r1_id=r1_id,r1_img=r1_img,r1_price=r1_price,r1_sector=r1_sector,r1_area=r1_area,r1_bedroom=r1_bedroom,r1_bathroom=r1_bathroom,r1_rate=r1_rate,r1_n=r1_n,r1_socity=r1_socity , r2_id=r2_id,r2_img=r2_img,r2_price=r2_price,r2_sector=r2_sector,r2_area=r2_area,r2_bedroom=r2_bedroom,r2_bathroom=r2_bathroom,r2_rate=r2_rate,r2_n=r2_n ,r2_socity=r2_socity, r3_id=r3_id,r3_img=r3_img,r3_price=r3_price,r3_sector=r3_sector,r3_area=r3_area,r3_bedroom=r3_bedroom,r3_bathroom=r3_bathroom,r3_rate=r3_rate,r3_n=r3_n ,r3_socity=r3_socity, r4_id=r4_id,r4_img=r4_img,r4_price=r4_price,r4_sector=r4_sector,r4_area=r4_area,r4_bedroom=r4_bedroom,r4_bathroom=r4_bathroom,r4_rate=r4_rate,r4_n=r4_n ,r4_socity=r4_socity, r5_id=r5_id,r5_img=r5_img,r5_price=r5_price,r5_sector=r5_sector,r5_area=r5_area,r5_bedroom=r5_bedroom,r5_bathroom=r5_bathroom,r5_rate=r5_rate,r5_n=r5_n,r5_socity=r5_socity,user=user_name)
+    return render_template('recomendation.html',user_img=user_img,user_id=itr,user_price=user_price,user_sector=user_sector,user_area=user_area,status=status,user_bathroom=user_bathroom,user_bedroom=user_bedroom,user_rate=user_rate,login=status, r1_id=r1_id,r1_img=r1_img,r1_price=r1_price,r1_sector=r1_sector,r1_area=r1_area,r1_bedroom=r1_bedroom,r1_bathroom=r1_bathroom,r1_rate=r1_rate,r1_n=r1_n,r1_socity=r1_socity , r2_id=r2_id,r2_img=r2_img,r2_price=r2_price,r2_sector=r2_sector,r2_area=r2_area,r2_bedroom=r2_bedroom,r2_bathroom=r2_bathroom,r2_rate=r2_rate,r2_n=r2_n ,r2_socity=r2_socity, r3_id=r3_id,r3_img=r3_img,r3_price=r3_price,r3_sector=r3_sector,r3_area=r3_area,r3_bedroom=r3_bedroom,r3_bathroom=r3_bathroom,r3_rate=r3_rate,r3_n=r3_n ,r3_socity=r3_socity, r4_id=r4_id,r4_img=r4_img,r4_price=r4_price,r4_sector=r4_sector,r4_area=r4_area,r4_bedroom=r4_bedroom,r4_bathroom=r4_bathroom,r4_rate=r4_rate,r4_n=r4_n ,r4_socity=r4_socity, r5_id=r5_id,r5_img=r5_img,r5_price=r5_price,r5_sector=r5_sector,r5_area=r5_area,r5_bedroom=r5_bedroom,r5_bathroom=r5_bathroom,r5_rate=r5_rate,r5_n=r5_n,r5_socity=r5_socity,user=user_name,user_location=location,user_society=user_society)
 
 @app.route('/contect')
 def about():

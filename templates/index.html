@@ -41,14 +41,29 @@
             <h2 class="text-6xl font-bold mb-3 ml-[120px] text-neutral-50">Find Real Estate </h2>
             <h2 class="text-6xl font-bold mb-3 ml-[120px] text-yellow-400">That Suits You </h2>
             <p class="text-xl text-sky-300 mb-3 ml-[120px] mt-3">Elevating Lives, Crafting Dreams: Your Journey Home Begins Here, Where Every Corner Holds Possibilities and Every Door Opens to Opportunity.</p>
+            {%if status==False%}
             <div class="flex ml-[125px] hover:text-Stone-950 transition ease-in-out delay-20">
+             
                 <a href="/login" class="hover:bg-red-600 text-white text-xl font-bold py-2 px-4 mr-2 rounded border border-blue-500 mt-3 transition ease-in-out delay-20 hover:-translate-y-1 hover:scale-110  duration-300">Get Start!</a>
+              
             </div>
-        </div>
+            {% endif %}
+            {%if status%}
+            <div class="flex ml-[235px] hover:text-Stone-950 transition ease-in-out delay-20">
+              <p class="text-red-400 text-5xl font-bold py-2 px-4 mr-2  mt-10 transition ease-in-out delay-20 hover:-translate-y-1 hover:scale-110  duration-300">Welcome !!</p>
+            </div>
+            <div class="flex ml-[125px] hover:text-Stone-950 transition ease-in-out delay-20">
+              <p class="text-white text-5xl font-bold py-2 px-4 mr-2 -mb-20 transition ease-in-out delay-20 hover:-translate-y-1 hover:scale-110  duration-300">Match Your Mantion !!</p>
+              
+            </div>
+            
+            {% endif %}
+          </div>
+
         
         <!-- Right Image -->
         <div class="lg:w-1/2 bg-transparent">
-          <img src="static/home01.png" alt="Image" class="w-full h-auto">
+          <img src="static/home01.png" alt="Image" class="w-full h-auto ">
       </div>
     </div>
 
@@ -70,7 +85,7 @@
           <form action="/recomendation" method="post">
             <div id="showContentBtn" class="flex flex-wrap -m-10 scale-effect">
                 {% for i in range(0, n) %}
-                <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{i}}">
+                <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{index_id[i]}}">
                     <!-- <input type="hidden" name="user_img_{{ i }}" value="{{ img_list[i] }}">
                     <input type="hidden" name="user_id_{{ i }}" value="{{ index_id[i] }}">
                     <input type="hidden" name="user_area_{{ i }}" value="{{ index_area[i] }}">
