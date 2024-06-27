@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button inside a Button</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Login</title>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
-
-    <button class="relative p-4 bg-blue-500 text-white rounded">
-        Parent Button
-        <a href="/cart?id=123" class="absolute inset-y-0 right-0 flex items-center pr-4">
-            <button class="px-2 py-1 bg-green-500 text-white rounded">Go to Cart</button>
-        </a>
-    </button>
-
+<body>
+    <form method="post">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <a href="{{ url_for('signup') }}">Sign Up</a>
 </body>
+
+
+
 </html>

@@ -1,13 +1,19 @@
-from flask import Flask ,render_template,request,redirect
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.tree import DecisionTreeRegressor
-import pandas as pd
-import pickle
-import numpy as np
+from flask import Flask ,render_template
+from flask_socketio import SocketIO,send
 
 
-from login import User_othintaction
+app=Flask(__name__)
+app.config['SECRET']='secret!123'
+socketio=SocketIO(app,cors_allowed_origin="*")
 
-t=User_othintaction()
+@socketio.on('message')
+def handel_massege(message):
+    print('Receiver message : ' +message)
+    if message=='user_connected!':
+        send(message,broadcast=True)
 
-print(t.login('sbs123','1234'))
+
+
+@app.rout('/')
+def index():
+    return render_template('test.html')

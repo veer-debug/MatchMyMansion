@@ -25,7 +25,7 @@ luxury_category =sorted(df['luxury_category'].unique().tolist())
 floor_category = sorted(df['floor_category'].unique().tolist())
 
 # ================================================================================
-with open('Jupiter_works/dataset/pipeline1.pkl','rb') as file:
+with open('/home/veer/Desktop/Running_Projects/MatchMyMansion0/Jupiter_works/dataset/pipeline1.pkl','rb') as file:
     pipeline = pickle.load(file)
 
 status =False
@@ -78,7 +78,7 @@ def home():
     index_bathroom=df['bathroom'].values
     index_rate=np.round((10000000*df['price'])/df['built_up_area'],0).values
     n=df.shape[0]
-    return render_template('index.html',img_list=img_list,n=110,index_area=index_area,index_id=index_id,index_bedroom=index_bedroom,index_price=index_price,index_sector=index_sector,index_rate=index_rate,index_bathroom=index_bathroom,login=status,user=user_name,status=status)
+    return render_template('index.html',img_list=img_list,n=52,index_area=index_area,index_id=index_id,index_bedroom=index_bedroom,index_price=index_price,index_sector=index_sector,index_rate=index_rate,index_bathroom=index_bathroom,login=status,user=user_name,status=status)
 
 @app.route('/login')
 def login(): 
@@ -245,6 +245,8 @@ def recomendation():
     user_bathroom=df[df['id']==itr].bathroom.values[0]
     user_society=df[df['id']==itr].society.values[0]
     user_location=df[df['id']==itr].near_locatio.values[0]
+    user_furnish=df[df['id']==itr].furnishing_type.values[0].title()
+    user_propertyt=df[df['id']==itr].property_type.values[0].title()
     location =user_location.strip("{}").replace("'", "")
     user_rate=int((user_price*10000000)/user_area)
     
@@ -331,7 +333,20 @@ def recomendation():
        r5_n=4
 
     
-    return render_template('recomendation.html',user_img=user_img,user_id=itr,user_price=user_price,user_sector=user_sector,user_area=user_area,status=status,user_bathroom=user_bathroom,user_bedroom=user_bedroom,user_rate=user_rate,login=status, r1_id=r1_id,r1_img=r1_img,r1_price=r1_price,r1_sector=r1_sector,r1_area=r1_area,r1_bedroom=r1_bedroom,r1_bathroom=r1_bathroom,r1_rate=r1_rate,r1_n=r1_n,r1_socity=r1_socity , r2_id=r2_id,r2_img=r2_img,r2_price=r2_price,r2_sector=r2_sector,r2_area=r2_area,r2_bedroom=r2_bedroom,r2_bathroom=r2_bathroom,r2_rate=r2_rate,r2_n=r2_n ,r2_socity=r2_socity, r3_id=r3_id,r3_img=r3_img,r3_price=r3_price,r3_sector=r3_sector,r3_area=r3_area,r3_bedroom=r3_bedroom,r3_bathroom=r3_bathroom,r3_rate=r3_rate,r3_n=r3_n ,r3_socity=r3_socity, r4_id=r4_id,r4_img=r4_img,r4_price=r4_price,r4_sector=r4_sector,r4_area=r4_area,r4_bedroom=r4_bedroom,r4_bathroom=r4_bathroom,r4_rate=r4_rate,r4_n=r4_n ,r4_socity=r4_socity, r5_id=r5_id,r5_img=r5_img,r5_price=r5_price,r5_sector=r5_sector,r5_area=r5_area,r5_bedroom=r5_bedroom,r5_bathroom=r5_bathroom,r5_rate=r5_rate,r5_n=r5_n,r5_socity=r5_socity,user=user_name,user_location=location,user_society=user_society)
+    return render_template('recomendation.html',user_img=user_img,user_id=itr,user_price=user_price,user_sector=user_sector,user_propertyt=user_propertyt,user_area=user_area,status=status,user_bathroom=user_bathroom,user_bedroom=user_bedroom,user_rate=user_rate,user_furnish=user_furnish,login=status, r1_id=r1_id,r1_img=r1_img,r1_price=r1_price,r1_sector=r1_sector,r1_area=r1_area,r1_bedroom=r1_bedroom,r1_bathroom=r1_bathroom,r1_rate=r1_rate,r1_n=r1_n,r1_socity=r1_socity , r2_id=r2_id,r2_img=r2_img,r2_price=r2_price,r2_sector=r2_sector,r2_area=r2_area,r2_bedroom=r2_bedroom,r2_bathroom=r2_bathroom,r2_rate=r2_rate,r2_n=r2_n ,r2_socity=r2_socity, r3_id=r3_id,r3_img=r3_img,r3_price=r3_price,r3_sector=r3_sector,r3_area=r3_area,r3_bedroom=r3_bedroom,r3_bathroom=r3_bathroom,r3_rate=r3_rate,r3_n=r3_n ,r3_socity=r3_socity, r4_id=r4_id,r4_img=r4_img,r4_price=r4_price,r4_sector=r4_sector,r4_area=r4_area,r4_bedroom=r4_bedroom,r4_bathroom=r4_bathroom,r4_rate=r4_rate,r4_n=r4_n ,r4_socity=r4_socity, r5_id=r5_id,r5_img=r5_img,r5_price=r5_price,r5_sector=r5_sector,r5_area=r5_area,r5_bedroom=r5_bedroom,r5_bathroom=r5_bathroom,r5_rate=r5_rate,r5_n=r5_n,r5_socity=r5_socity,user=user_name,user_location=location,user_society=user_society)
+
+@app.route('/stats', methods=['POST','GET'])
+def stats():
+    global status
+    status=False
+    itr=int(request.form['itr'])
+    
+    
+    return render_template('states.html')
+   
+    
+
+
 
 @app.route('/contect')
 def about():

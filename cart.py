@@ -6,7 +6,7 @@ today_date = date.today()
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="",
+    password="0252",
     database="MatchMyMantion"
 )
 
@@ -16,7 +16,7 @@ class Cart:
         cursor = conn.cursor()
         
         # Get user_id for the given username
-        cursor.execute("SELECT id FROM User_data WHERE user_name = %s", (username,))
+        cursor.execute("SELECT user_id FROM User_data WHERE user_name = %s", (username,))
         user = cursor.fetchone()
 
         if user:
@@ -40,7 +40,7 @@ class Cart:
         # Query to fetch wishlist for the given username
         cursor.execute("""SELECT u.user_name, w.product_id 
                           FROM User_data u JOIN User_wishlist w 
-                          ON u.id = w.user_id WHERE u.user_name = %s """, (user_name,))
+                          ON u.user_id = w.user_id WHERE u.user_name = %s """, (user_name,))
 
         # Fetch and print the results
         wishlist_items = cursor.fetchall()

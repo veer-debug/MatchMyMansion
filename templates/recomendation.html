@@ -21,7 +21,7 @@
       <nav class="md:ml-auto  flex flex-wrap items-center text-base justify-center text-neutral-50">
         <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Home</a>
         <a href="/prediction_form" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Prediction</a>
-        <a href="/contect" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Contect us</a>
+        <a href="/contect" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Contact us</a>
         <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">About</a>
 
         {%if login==True%}
@@ -52,7 +52,9 @@
          </h1>
          <p class="title-font text-neutral-50 text-2xl">Bed Rooms - {{user_bedroom}} | Bathroom - {{user_bathroom}}</p>
          <p class="title-font text-neutral-50 text-2xl mt-2">Servant Room - {{user_bedroom}} | Store Room - {{user_bathroom}}</p>
-         <p class="title-font text-neutral-50 text-2xl mt-2">Totel Area - {{user_area}} sqft.| <span>&#8377;</span> {{user_rate}}/ sqft.</p>
+         <p class="title-font text-neutral-50 text-2xl mt-2">Totel Area - {{user_area}} sqft. | Rate - <span>&#8377;</span> {{user_rate}}/ sqft.</p>
+         <p class="title-font text-neutral-50 text-2xl mt-2">Property Type - {{user_propertyt}} | {{user_furnish}} </p>
+         
           <p class="title-font sm:text-2xl mt-10 text-2xl font-medium  text-cyan-600 inline ">Location advantage :</p>
           <p class=" title-font sm:text-xl text-xl mb-4 font-medium text-neutral-100">{{user_location}}</p>
 
@@ -60,8 +62,10 @@
               <form action="/add-to-cart" method="post">
               <button name="id" value="{{user_id}}" class="hover:bg-rose-300 text-white text-xl font-bold px-3 py-2 mr-20  rounded border border-blue-500 transition ease-in-out delay-20 hover:-translate-y-1 hover:scale-110  duration-300 inline-block">Wish List</button>
             </form>
-              <a href="/login" class="hover:bg-green-300 text-white text-xl font-bold px-5 py-2 ml-20 rounded border border-blue-500 transition ease-in-out delay-20 hover:-translate-y-1 hover:scale-110  duration-300 ">Stats</a>
-          </div>
+            <form action="/stats" method="post">
+              <button name='itr' value="{{user_id}}" class="hover:bg-green-300 text-white text-xl font-bold px-5 py-2 ml-20 rounded border border-blue-500 transition ease-in-out delay-20 hover:-translate-y-1 hover:scale-110  duration-300 ">Stats</button>
+            </form>
+            </div>
           
 
          </div>
@@ -81,7 +85,7 @@
     <div class="container px-5 py-5 mx-auto">
         <div class="flex flex-wrap w-full mb-20">
             <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-                <h1 class="sm:text-3xl text-2xl font-medium title-font  text-neutral-50">Recomended property for you !</h1>
+                <h1 class="sm:text-3xl text-2xl font-medium title-font  text-neutral-50">Recommended property for you !</h1>
                 <div class="h-1 w-20 bg-indigo-500 rounded mb-10"></div>
 
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50">01. {{r1_socity}}</h1>
@@ -116,7 +120,8 @@
 
 
 <!-- R2 Results -->
-<section class="text-black-400 body-font">
+<section class="text-black-400 body-font  ">
+  
   <div class="container px-5 py-5 mx-auto">
       <div class="flex flex-wrap w-full mb-20">
           <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
@@ -254,17 +259,31 @@
 
 
 {%if status==False%}
-<section class="text-black-400 body-font">
-  <div class="container px-5 py-5 mx-auto">
+<section class="text-black-400 body-font ">
+  
+  <div class="  container px-5 py-5 mx-auto">
+    
       <div class="flex flex-wrap w-full mb-20">
+        
           <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-              <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50">Recomended property for you !</h1>
+              <h1 class="sm:text-3xl text-2xl font-medium title-font  text-neutral-50">Recommended property for you !</h1>
               <div class="h-1 w-20 bg-indigo-500 rounded"></div>
           </div>
           <!-- <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p> -->
       </div>
     <form action="/login">
-      <div id="showContentBtn" class="flex flex-wrap -m-10 scale-effect blur-md">
+      <div class="z-50 sticky top-2/3  p-10 w-full max-w-10xl mx-auto rounded-lg flex justify-between items-center space-x-4 bg-gray-900">
+        <div class="text-center ">
+          <p class="text-3xl text-rose-900">Unlock exclusive content! <br> Join us to access premium features and personalized experiences tailored just for you. Sign in now!</p>
+        </div>
+        <div class=" text-center focus:outline-none hover:-translate-y-1 hover:scale-110 duration-300 mr-20">
+          <a href="/login" class="hover:bg-red-500 text-white bg-indigo-500 border-0 px-5 py-3  rounded text-lg">Login </a>
+        </div>
+      </div>
+      
+      
+        <div id="showContentBtn" class="flex flex-wrap -mt-64 -m-10 scale-effect blur-md">
+        
           {% for i in range(0, 100) %}
           <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{i}}">
               <div class="bg-gray-100 p-6 rounded-lg hover:text-Stone-950 transition ease-in-out delay-20 bg-blue-500 hover:-translate-y-1 hover:scale-110 duration-300">

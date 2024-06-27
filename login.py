@@ -6,7 +6,7 @@ date=date.today()
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="",  # Enter your MySQL password here
+    password="0252",
     database="MatchMyMantion"
 )
 
