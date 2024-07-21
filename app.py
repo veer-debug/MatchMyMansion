@@ -25,7 +25,7 @@ luxury_category =sorted(df['luxury_category'].unique().tolist())
 floor_category = sorted(df['floor_category'].unique().tolist())
 
 # ================================================================================
-with open('Jupiter_works\dataset\pipeline1.pkl','rb') as file:
+with open('Jupiter_works/dataset/pipeline1.pkl','rb') as file:
     pipeline = pickle.load(file)
 
 status =True
