@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MatchMyMansion</title>
+    <link rel="icon" type="image/x-icon" href="static/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body class="bg-gray-300 ">
+  <header class="text-zinc-950 body-font   bg-gray-900 h-[120px] mt-0 fixed top-0 w-full z-10">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center -my-6">
+      <a href="/" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <img src="static/logo.png" alt="Logo" class="w-15 h-12">
+        <span class="ml-3 text-xl text-neutral-50">MatchMyMansion</span>
+      </a>
+      <nav class="md:ml-auto  flex flex-wrap items-center text-base justify-center text-neutral-50">
+        <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Home</a>
+        <a href="/prediction_form" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Prediction</a>
+        <a href="/contect" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Contact us</a>
+        <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">About</a>
+
+        {%if login==True%}
+            <a href="/profile" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">{{user}}</a>
+            <a href="/cart" class="flex title-font font-medium items-center text-gray-900 mb-1 md:mb-0 hover:-translate-y-1 hover:scale-110 duration-300">
+              <img src="static/shopping.png" alt="Logo" class="w-10 h-8">
+            </a>
+            {% endif %}
+        {%if login==False%}
+        <a href="/login" class="text-white bg-indigo-500 border-0  px-3 focus:outline-none hover:hover:-translate-y-1 hover:scale-110  duration-300 rounded text-lg ">Login</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+      
+
+
+      <!-- Ranveer Kumar -->
+
+      <section class="text-gray-600 body-font mt-10">
+        <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+            <div class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">TEAM SHIRSHAK</h1>
+                <div class="h-1 w-100 bg-indigo-500 rounded mb-20"></div>
+            </div>
+          <img class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded" alt="hero" src="https://github.com/veer-debug/music/blob/main/RANVEER.jpeg?raw=true">
+          <div class="text-center lg:w-2/3 w-full">
+            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">RANVEER KUMAR ( ML-Devloper)</h1>
+            <p class="mb-8 leading-relaxed">Within our project, I spearhead the implementation of machine learning techniques to predict prices and deliver customized recommendations, maximizing decision-making accuracy and user engagement. My focus is on leveraging data-driven insights to continuously refine our systems, ensuring they remain agile and responsive to evolving market dynamics, ultimately driving sustained business growth</p>
+          </div>
+        </div>
+        <span class="flex justify-center -mt-20 mb-20">
+            <a href="https://www.facebook.com/profile.php?id=100021945492319" class="text-gray-500" >
+                
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+              </svg>
+            </a>
+            <a href="https://twitter.com/RANVEER_K07" class="ml-3 text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/__ranveer0__/" class="ml-3 text-gray-500">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/ranveer-kumar-12050a247/" class="ml-3 text-gray-500">
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+                <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                <circle cx="4" cy="4" r="2" stroke="none"></circle>
+              </svg>
+            </a>
+          </span>
+
+        
+      </section>
+      <hr>
+      
+
+      <!-- Prabhnoor -->
+      <section class="text-gray-600 body-font">
+        <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+          <img class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded" alt="hero" src="https://github.com/veer-debug/music/blob/main/prabhnoor.jpg?raw=true">
+          <div class="text-center lg:w-2/3 w-full">
+            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">PRABHNOOR KAUR</h1>
+            <p class="mb-8 leading-relaxed">In my role as a frontend developer, I employ Flask, HTML, and Tailwind CSS to create visually captivating and intuitive interfaces for our project. With meticulous attention to detail, I design and implement responsive layouts that enhance user engagement and streamline navigation. My aim is to seamlessly integrate functionality with aesthetics, delivering a polished user experience that aligns with our project's objectives and vision.</p>
+          </div>
+        </div>
+        <span class="flex justify-center -mt-20 mb-20">
+            <a class="text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+                <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                <circle cx="4" cy="4" r="2" stroke="none"></circle>
+              </svg>
+            </a>
+          </span>
+
+      </section>
+
+      <hr>
+
+      <!-- Vanshita -->
+      <section class="text-gray-600 body-font">
+        <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+          <img class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded" alt="hero" src="https://github.com/veer-debug/music/blob/main/vanshita.jpg?raw=true">
+          <div class="text-center lg:w-2/3 w-full">
+            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">VANSHITA AGGARWAL</h1>
+            <p class="mb-8 leading-relaxed">In our project, I specialize in data gathering from 99acres and performing thorough preprocessing to prepare the data for analysis. Leveraging web scraping techniques and libraries like Pandas, NumPy, and Matplotlib, I extract, clean, and visualize the data to provide valuable insights. My role is crucial in ensuring the quality and integrity of the data, laying a solid foundation for subsequent analysis and modeling efforts within our team</p>
+          </div>
+        </div>
+        <span class="flex justify-center -mt-20 mb-20">
+            <a class="text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+                <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                <circle cx="4" cy="4" r="2" stroke="none"></circle>
+              </svg>
+            </a>
+          </span>
+
+      </section>
+
+      <hr>
+
+      <!-- Rishikesh Gautam -->
+      <section class="text-gray-600 body-font">
+        <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+          <img class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded" alt="hero" src="https://github.com/veer-debug/music/blob/main/rishikesh.jpg?raw=true">
+          <div class="text-center lg:w-2/3 w-full">
+            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">RISHIKESH GAUTAM</h1>
+            <p class="mb-8 leading-relaxed">As the testing and deployment lead in our project, I play a pivotal role in ensuring the reliability and functionality of our product at every stage of development. Through meticulous testing procedures, I validate each component to guarantee optimal performance and user satisfaction. Once the project is complete, I oversee its seamless deployment and take charge of managing it post-launch, ensuring smooth operation and timely updates to meet evolving needs. My dedication to quality assurance and efficient project management contributes to the success and longevity of our endeavor.</p>
+          </div>
+        </div>
+        <span class="flex justify-center -mt-20 ">
+            <a class="text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+              </svg>
+            </a>
+            <a class="ml-3 text-gray-500">
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+                <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                <circle cx="4" cy="4" r="2" stroke="none"></circle>
+              </svg>
+            </a>
+          </span>
+
+      </section>
+
+
+
+
+
+      
+
+    
+      <footer class="text-gray-600 body-font bg-gray-900 mt-10">
+        <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+          <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+            <img src="static/logo.png" alt="Logo" class="w-15 h-12">
+            <span class="ml-3 text-xl text-neutral-50">MatchMyMansion</span>
+          </a>
+          <p class="text-sm text-gray-500 sm:ml-4"></p>
+        </div>
+      </footer>
+</body>
+</html>

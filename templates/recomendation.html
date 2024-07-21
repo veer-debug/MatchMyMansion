@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MatchMyMansion</title>
+  <link rel="icon" type="image/x-icon" href="static/logo.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body class="bg-neutral-900 ">
+  <header class="text-zinc-950 body-font   bg-gray-900 h-[120px] mt-0 fixed top-0 w-full z-10">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center -my-6">
+      <a href="/" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <img src="static/logo.png" alt="Logo" class="w-15 h-12">
+        <span class="ml-3 text-xl text-neutral-50">MatchMyMansion</span>
+      </a>
+      <nav class="md:ml-auto  flex flex-wrap items-center text-base justify-center text-neutral-50">
+        <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Home</a>
+        <a href="/prediction_form" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Prediction</a>
+        <a href="/contect" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">Contact us</a>
+        <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">About</a>
+
+        {%if login==True%}
+            <a href="/profile" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5  hover:-translate-y-1 hover:scale-110  duration-300">{{user}}</a>
+            <a href="/cart" class="flex title-font font-medium items-center text-gray-900 mb-1 md:mb-0 hover:-translate-y-1 hover:scale-110 duration-300">
+              <img src="static/shopping.png" alt="Logo" class="w-10 h-8">
+            </a>
+            {% endif %}
+        {%if login==False%}
+        <a href="/login" class="text-white bg-indigo-500 border-0  px-3 focus:outline-none hover:hover:-translate-y-1 hover:scale-110  duration-300 rounded text-lg ">Login</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+
+  <section class="text-gray-600 body-font -mb-20 mt-[60px]">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div class="lg:max-w-lg lg:w-full md:w-1 w-5/6 mb-10 md:mb-0">
+        <img class="object-cover object-center rounded w-full h-full" alt="hero" src="{{user_img}}">
+    </div>
+    
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-center  md:text-left items-center text-center mt-3">
+        <h1 class="title-font sm:text-4xl text-4xl  mb-4  font-medium text-orange-500 ">{{user_society}} , Gurgaon - {{user_sector}}
+        </h1>
+        <h1 class="title-font sm:text-5xl text-5xl  mb-8 font-medium text-neutral-50"><span>&#8377;</span> {{user_price}} Cr.
+         </h1>
+         <p class="title-font text-neutral-50 text-2xl">Bed Rooms - {{user_bedroom}} | Bathroom - {{user_bathroom}}</p>
+         <p class="title-font text-neutral-50 text-2xl mt-2">Servant Room - {{user_bedroom}} | Store Room - {{user_bathroom}}</p>
+         <p class="title-font text-neutral-50 text-2xl mt-2">Totel Area - {{user_area}} sqft. | Rate - <span>&#8377;</span> {{user_rate}}/ sqft.</p>
+         <p class="title-font text-neutral-50 text-2xl mt-2">Property Type - {{user_propertyt}} | {{user_furnish}} </p>
+         
+          <p class="title-font sm:text-2xl mt-10 text-2xl font-medium  text-cyan-600 inline ">Location advantage :</p>
+          <p class=" title-font sm:text-xl text-xl mb-4 font-medium text-neutral-100">{{user_location}}</p>
+
+            <div class="flex space-x-4 mb-3">
+              <form action="/add-to-cart" method="post">
+              <button name="id" value="{{user_id}}" class="hover:bg-rose-300 text-white text-xl font-bold px-3 py-2 mr-20  rounded border border-blue-500 transition ease-in-out delay-20 hover:-translate-y-1 hover:scale-110  duration-300 inline-block">Wish List</button>
+            </form>
+            <form action="/stats" method="post">
+              <button name='itr' value="{{user_id}}" class="hover:bg-green-300 text-white text-xl font-bold px-5 py-2 ml-20 rounded border border-blue-500 transition ease-in-out delay-20 hover:-translate-y-1 hover:scale-110  duration-300 ">Stats</button>
+            </form>
+            </div>
+          
+
+         </div>
+         <div>
+        </div>
+      </div>
+        
+          
+    </div>
+    
+  </section>
+  <hr class="text-yellow-400 text-xl ">
+
+{%if status%}
+  <!-- R1 Results -->
+  <section class="text-black-400 body-font">
+    <div class="container px-5 py-5 mx-auto">
+        <div class="flex flex-wrap w-full mb-20">
+            <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font  text-neutral-50">Recommended property for you !</h1>
+                <div class="h-1 w-20 bg-indigo-500 rounded mb-10"></div>
+
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50">01. {{r1_socity}}</h1>
+            </div>
+            <!-- <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p> -->
+        </div>
+      <form action="/recomendation" method="post">
+        <div id="showContentBtn" class="flex flex-wrap -m-10 scale-effect">
+            {% for i in range(0, r1_n) %}
+            <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{r1_id[i]}}">
+                <div class="bg-gray-100 p-6 rounded-lg hover:text-Stone-950 transition ease-in-out delay-20 bg-blue-500 hover:-translate-y-1 hover:scale-110 duration-300">
+                    <img class="h-40 rounded w-full object-cover object-center mb-6" src="{{ r1_img[i] }}" alt="content">
+                    <!-- <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font"></h3> -->
+                    <h2 class="text-lg text-green-600 font-medium title-font mb-1"><span>&#8377;</span> {{ r1_price[i] }} Cr.</h2>
+                    <div class="grid grid-cols-2 gap-2">
+                        <p class="leading-relaxed text-base col-span-2 text-xl">Gurgaon , {{ r1_sector[i] }} </p>
+                        <p class="leading-relaxed text-base">Area-{{ r1_area[i] }} sqft. </p>
+                        <p class="leading-relaxed text-base"><span>&#8377;</span>{{ r1_rate[i] }}/sqft.</p>
+                        <p class="leading-relaxed text-base">Bedroom-{{ r1_bedroom[i] }}</p>
+                        <p class="leading-relaxed text-base">Bathroom-{{ r1_bathroom[i] }}</p>
+                    </div>
+                </div>
+
+            </button>
+            {% endfor %}
+        </div>
+    </form> 
+    </div>
+</section>
+
+
+
+
+<!-- R2 Results -->
+<section class="text-black-400 body-font  ">
+  
+  <div class="container px-5 py-5 mx-auto">
+      <div class="flex flex-wrap w-full mb-20">
+          <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50">02. {{r2_socity}}</h1>
+          </div>
+          <!-- <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p> -->
+      </div>
+    <form action="/recomendation" method="post">
+      <div id="showContentBtn" class="flex flex-wrap -m-10 scale-effect">
+          {% for i in range(0, r2_n) %}
+          <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{r2_id[i]}}">
+              <div class="bg-gray-100 p-6 rounded-lg hover:text-Stone-950 transition ease-in-out delay-20 bg-blue-500 hover:-translate-y-1 hover:scale-110 duration-300">
+                  <img class="h-40 rounded w-full object-cover object-center mb-6" src="{{ r2_img[i] }}" alt="content">
+                  <!-- <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">ID</h3> -->
+                  <h2 class="text-lg text-green-600 font-medium title-font mb-1"><span>&#8377;</span> {{ r2_price[i] }} Cr.</h2>
+                  <div class="grid grid-cols-2 gap-2">
+                      <p class="leading-relaxed text-base col-span-2 text-xl">Gurgaon , {{ r2_sector[i] }} </p>
+                      <p class="leading-relaxed text-base">Area-{{ r2_area[i] }} sqft. </p>
+                      <p class="leading-relaxed text-base"><span>&#8377;</span>{{ r2_rate[i] }}/sqft.</p>
+                      <p class="leading-relaxed text-base">Bedroom-{{ r2_bedroom[i] }}</p>
+                      <p class="leading-relaxed text-base">Bathroom-{{ r2_bathroom[i] }}</p>
+                  </div>
+              </div>
+          </button>
+          {% endfor %}
+      </div>
+  </form> 
+  </div>
+</section>
+
+
+
+<!-- R3 Results -->
+<section class="text-black-400 body-font">
+  <div class="container px-5 py-5 mx-auto">
+      <div class="flex flex-wrap w-full mb-20">
+          <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50">03. {{r3_socity}}</h1>
+          </div>
+          <!-- <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p> -->
+      </div>
+    <form action="/recomendation" method="post">
+      <div id="showContentBtn" class="flex flex-wrap -m-10 scale-effect">
+          {% for i in range(0, r3_n) %}
+          <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{r3_id[i]}}">
+              <div class="bg-gray-100 p-6 rounded-lg hover:text-Stone-950 transition ease-in-out delay-20 bg-blue-500 hover:-translate-y-1 hover:scale-110 duration-300">
+                  <img class="h-40 rounded w-full object-cover object-center mb-6" src="{{ r3_img[i] }}" alt="content">
+                  <!-- <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">ID-</h3> -->
+                  <h2 class="text-lg text-green-600 font-medium title-font mb-1"><span>&#8377;</span> {{ r3_price[i] }} Cr.</h2>
+                  <div class="grid grid-cols-2 gap-2">
+                      <p class="leading-relaxed text-base col-span-2 text-xl">Gurgaon , {{ r3_sector[i] }} </p>
+                      <p class="leading-relaxed text-base">Area-{{ r3_area[i] }} sqft. </p>
+                      <p class="leading-relaxed text-base"><span>&#8377;</span>{{ r3_rate[i] }}/sqft.</p>
+                      <p class="leading-relaxed text-base">Bedroom-{{ r3_bedroom[i] }}</p>
+                      <p class="leading-relaxed text-base">Bathroom-{{ r3_bathroom[i] }}</p>
+                  </div>
+              </div>
+          </button>
+          {% endfor %}
+      </div>
+  </form> 
+  </div>
+</section>
+
+
+<!-- R4 Results -->
+<section class="text-black-400 body-font">
+  <div class="container px-5 py-5 mx-auto">
+      <div class="flex flex-wrap w-full mb-20">
+          <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50">04. {{r4_socity}}</h1>
+          </div>
+          <!-- <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p> -->
+      </div>
+    <form action="/recomendation" method="post">
+      <div id="showContentBtn" class="flex flex-wrap -m-10 scale-effect">
+          {% for i in range(0, r4_n) %}
+          <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{r4_id[i]}}">
+              <div class="bg-gray-100 p-6 rounded-lg hover:text-Stone-950 transition ease-in-out delay-20 bg-blue-500 hover:-translate-y-1 hover:scale-110 duration-300">
+                  <img class="h-40 rounded w-full object-cover object-center mb-6" src="{{ r4_img[i] }}" alt="content">
+                  <!-- <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">ID- </h3> -->
+                  <h2 class="text-lg text-green-600 font-medium title-font mb-1"><span>&#8377;</span> {{ r4_price[i] }} Cr.</h2>
+                  <div class="grid grid-cols-2 gap-2">
+                      <p class="leading-relaxed text-base col-span-2 text-xl">Gurgaon , {{ r4_sector[i] }} </p>
+                      <p class="leading-relaxed text-base">Area-{{ r4_area[i] }} sqft. </p>
+                      <p class="leading-relaxed text-base"><span>&#8377;</span>{{ r4_rate[i] }}/sqft.</p>
+                      <p class="leading-relaxed text-base">Bedroom-{{ r4_bedroom[i] }}</p>
+                      <p class="leading-relaxed text-base">Bathroom-{{ r4_bathroom[i] }}</p>
+                  </div>
+              </div>
+          </button>
+          {% endfor %}
+      </div>
+  </form> 
+  </div>
+</section>
+
+
+<!-- R5 Results -->
+<section class="text-black-400 body-font">
+  <div class="container px-5 py-5 mx-auto">
+      <div class="flex flex-wrap w-full mb-20">
+          <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-neutral-50">05. {{r5_socity}}</h1>
+          </div>
+          <!-- <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p> -->
+      </div>
+    <form action="/recomendation" method="post">
+      <div id="showContentBtn" class="flex flex-wrap -m-10 scale-effect">
+          {% for i in range(0, r5_n) %}
+          <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{r5_id[i]}}">
+              <div class="bg-gray-100 p-6 rounded-lg hover:text-Stone-950 transition ease-in-out delay-20 bg-blue-500 hover:-translate-y-1 hover:scale-110 duration-300">
+                  <img class="h-40 rounded w-full object-cover object-center mb-6" src="{{ r5_img[i] }}" alt="content">
+                  <!-- <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">ID- </h3> -->
+                  <h2 class="text-lg text-green-600 font-medium title-font mb-1"><span>&#8377;</span> {{ r5_price[i] }} Cr.</h2>
+                  <div class="grid grid-cols-2 gap-2">
+                      <p class="leading-relaxed text-base col-span-2 text-xl">Gurgaon , {{ r5_sector[i] }} </p>
+                      <p class="leading-relaxed text-base">Area-{{ r5_area[i] }} sqft. </p>
+                      <p class="leading-relaxed text-base"><span>&#8377;</span>{{ r5_rate[i] }}/sqft.</p>
+                      <p class="leading-relaxed text-base">Bedroom-{{ r5_bedroom[i] }}</p>
+                      <p class="leading-relaxed text-base">Bathroom-{{ r5_bathroom[i] }}</p>
+                  </div>
+              </div>
+          </button>
+          {% endfor %}
+      </div>
+  </form> 
+  </div>
+</section>
+
+
+{%endif%}
+
+<!-- Blur section -->
+
+
+{%if status==False%}
+<section class="text-black-400 body-font ">
+  
+  <div class="  container px-5 py-5 mx-auto">
+    
+      <div class="flex flex-wrap w-full mb-20">
+        
+          <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+              <h1 class="sm:text-3xl text-2xl font-medium title-font  text-neutral-50">Recommended property for you !</h1>
+              <div class="h-1 w-20 bg-indigo-500 rounded"></div>
+          </div>
+          <!-- <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p> -->
+      </div>
+    <form action="/login">
+      <div class="z-50 sticky top-2/3  p-10 w-full max-w-10xl mx-auto rounded-lg flex justify-between items-center space-x-4 bg-gray-900">
+        <div class="text-center ">
+          <p class="text-3xl text-rose-900">Unlock exclusive content! <br> Join us to access premium features and personalized experiences tailored just for you. Sign in now!</p>
+        </div>
+        <div class=" text-center focus:outline-none hover:-translate-y-1 hover:scale-110 duration-300 mr-20">
+          <a href="/login" class="hover:bg-red-500 text-white bg-indigo-500 border-0 px-5 py-3  rounded text-lg">Login </a>
+        </div>
+      </div>
+      
+      
+        <div id="showContentBtn" class="flex flex-wrap -mt-64 -m-10 scale-effect blur-md">
+        
+          {% for i in range(0, 100) %}
+          <button class="xl:w-1/4 md:w-1/2 p-4" type="submit" name="itr" value="{{i}}">
+              <div class="bg-gray-100 p-6 rounded-lg hover:text-Stone-950 transition ease-in-out delay-20 bg-blue-500 hover:-translate-y-1 hover:scale-110 duration-300">
+                  <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://github.com/veer-debug/music/blob/main/pridict_image.jpg?raw=true" alt="content">
+                  <h2 class="text-lg text-green-600 font-medium title-font mb-1"><span>&#8377;</span>  Cr.</h2>
+                  <div class="grid grid-cols-2 gap-2">
+                      <p class="leading-relaxed text-base col-span-2 text-xl">Gurgaon ,  </p>
+                      <p class="leading-relaxed text-base">Area- sqft. </p>
+                      <p class="leading-relaxed text-base"><span>&#8377;</span>/sqft.</p>
+                      <p class="leading-relaxed text-base">Bedroom-</p>
+                      <p class="leading-relaxed text-base">Bathroom-</p>
+                  </div>
+              </div>
+          </button>
+          {% endfor %}
+      </div>
+  </form>
+  
+    
+  </div>
+</section>
+{%endif%}
+
+
+  
+  
+  
+
+
+
+
+
+<footer class="text-gray-600 body-font bg-gray-900">
+  <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+    <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+      <img src="static/logo.png" alt="Logo" class="w-15 h-12">
+      <span class="ml-3 text-xl text-neutral-50">MatchMyMansion</span>
+    </a>
+    <p class="text-sm text-gray-500 sm:ml-4"></p>
+  </div>
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MatchMyMansion</title>
+    <link rel="icon" type="image/x-icon" href="static/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body class="bg-neutral-900">
+    <header class="text-zinc-950 body-font mb-10 bg-gray-900 h-[120px] mt-0 fixed top-0 w-full z-10">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center -my-6">
+          <a href="/" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <img src="static/logo.png" alt="Logo" class="w-15 h-12">
+            <span class="ml-3 text-xl text-neutral-50">MatchMyMansion</span>
+          </a>
+          <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center text-neutral-50">
+            <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5 hover:-translate-y-1 hover:scale-110 duration-300">Home</a>
+            <a href="/prediction_form" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5 hover:-translate-y-1 hover:scale-110 duration-300">Prediction</a>
+            <a href="/contect" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5 hover:-translate-y-1 hover:scale-110 duration-300">Contact us</a>
+            <a href="/" class="mr-5 hover:text-yellow-400 transition ease-in-out delay-5 hover:-translate-y-1 hover:scale-110 duration-300">About</a>
+            <a href="/cart" class="flex title-font font-medium items-center text-gray-900 mb-1 md:mb-0 hover:-translate-y-1 hover:scale-110 duration-300">
+              <img src="static/shopping.png" alt="Logo" class="w-10 h-8">
+            </a>
+          </nav>
+        </div>
+    </header>
+
+
+    <section class="text-neutral-50 body-font mt-38 ml-24 mx-38 ">
+        <div class="container mx-auto flex px-5 py-10  mt-24 md:flex-row flex-col items-center justify-center">
+          <h1 class="title-font sm:text-7xl text-7xl mb-4 font-medium text-yellow-500">MatchMyMansion !</h1>
+        </div>
+        
+        <div class="container mx-auto flex px-5 py-10 md:flex-row flex-col items-center">
+            <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+                <img class="object-cover object-center rounded-full w-72 h-72" alt="hero" src="https://dummyimage.com/720x720">
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-12 md:pl-8 flex -ml-24 flex-col md:items-start md:text-left items-center text-center">
+                <h1 class="title-font sm:text-4xl text-3xl mb-7 font-medium text-neutral-50">User name - {{u_name}}</h1>
+                <h1 class="title-font sm:text-4xl text-3xl mb-7 font-medium text-neutral-50">Email - {{u_email}}</h1>
+                <h1 class="title-font sm:text-4xl text-3xl mb-7 font-medium text-neutral-50">Password - {{u_password}}</h1>
+                <h1 class="title-font sm:text-4xl text-3xl mb-7 font-medium text-neutral-50">Joined - {{u_date}}</h1>
+              </div>
+            </div>
+                <div class="container mx-auto flex px-5 py-10 mb-5 md:flex-row flex-col items-center">
+                  <h1 class="title-font sm:text-3xl text-3xl mb-4 font-medium text-green-500">Thank you for using MatchMyMansion! We're thrilled to help you find your perfect home. If you have any feedback or need further assistance, please don't hesitate to reach out.</h1>
+                </div>
+                <div class="flex justify-center w-full -mt-15">
+                  <a href="/logout" class="inline-flex text-white bg-red-500 border-0 mb-24 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg ">Logout</a>
+              </div>
+    </section>
+
+    <footer class="text-gray-600 body-font bg-gray-900">
+        <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+            <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+                <img src="static/logo.png" alt="Logo" class="w-15 h-12">
+                <span class="ml-3 text-xl text-neutral-50">MatchMyMansion</span>
+            </a>
+            <p class="text-sm text-gray-500 sm:ml-4"></p>
+        </div>
+    </footer>
+</body>
+</html>
