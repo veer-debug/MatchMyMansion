@@ -3,11 +3,11 @@ import pandas as pd
 import pickle
 import numpy as np
 
-# from login import User_othintaction
-# from cart import Cart
+from login import User_othintaction
+from cart import Cart
 
-# user_cart=Cart()
-# user=User_othintaction()
+user_cart=Cart()
+user=User_othintaction()
 
 
 # Load datasets
@@ -28,7 +28,7 @@ floor_category = sorted(df['floor_category'].unique().tolist())
 with open('Jupiter_works/dataset/pipeline1.pkl','rb') as file:
     pipeline = pickle.load(file)
 
-status =True
+status =False
 # login1=True
 user_name=None
 
@@ -80,40 +80,40 @@ def home():
     n=df.shape[0]
     return render_template('index.html',img_list=img_list,n=52,index_area=index_area,index_id=index_id,index_bedroom=index_bedroom,index_price=index_price,index_sector=index_sector,index_rate=index_rate,index_bathroom=index_bathroom,login=status,user=user_name,status=status)
 
-# @app.route('/login')
-# def login(): 
-#     return render_template('login.html')
-# @app.route('/c_login' , methods=['GET','POST'])
-# def c_login():
-#     global status
-#     global user_name
-#     u_name=request.form['u_name']
-#     u_password=request.form.get('u_password')
-#     check_log=user.login(u_name,u_password)
-#     if check_log:
-#         status = True
-#         user_name=u_name
-#         return home()
-#     else:
-#         return render_template('login.html',message="Invalid user Name or Password")
-# @app.route('/sign-up',methods=['GET','POST'])
-# def signup():
-#     u_name=request.form['u_name']
-#     u_email=request.form['u_email']
-#     u_password=request.form['u_password']
-#     check_user=user.signup(u_name,u_email,u_password)
-#     if check_user:
-#         return render_template('login.html',message="Signup Successfull !")
-#     else:
-#         return render_template('login.html',message="User alrady exist Please Login !")
+@app.route('/login')
+def login(): 
+    return render_template('login.html')
+@app.route('/c_login' , methods=['GET','POST'])
+def c_login():
+    global status
+    global user_name
+    u_name=request.form['u_name']
+    u_password=request.form.get('u_password')
+    check_log=user.login(u_name,u_password)
+    if check_log:
+        status = True
+        user_name=u_name
+        return home()
+    else:
+        return render_template('login.html',message="Invalid user Name or Password")
+@app.route('/sign-up',methods=['GET','POST'])
+def signup():
+    u_name=request.form['u_name']
+    u_email=request.form['u_email']
+    u_password=request.form['u_password']
+    check_user=user.signup(u_name,u_email,u_password)
+    if check_user:
+        return render_template('login.html',message="Signup Successfull !")
+    else:
+        return render_template('login.html',message="User alrady exist Please Login !")
 
 
-# @app.route('/profile')
-# def profile():
-#     global user_name
-#     user_list=user.profile(user_name)
-#     u_name,u_email,u_password,u_date=user_list[1],user_list[2],user_list[3],user_list[4]
-#     return render_template('profile.html',u_name=u_name,u_email=u_email,u_password=u_password,u_date=u_date)
+@app.route('/profile')
+def profile():
+    global user_name
+    user_list=user.profile(user_name)
+    u_name,u_email,u_password,u_date=user_list[1],user_list[2],user_list[3],user_list[4]
+    return render_template('profile.html',u_name=u_name,u_email=u_email,u_password=u_password,u_date=u_date)
 
 
 @app.route('/logout')
@@ -123,45 +123,45 @@ def logout():
    
     return home()
 
-# @app.route('/add-to-cart',methods=['POST'])
-# def aad_to_cart():
-#     id=int(request.form['id'])
-#     print(type(user_name))
-#     user_cart.add_to_cart(username=user_name,product_id=id)
-#     return cart()
+@app.route('/add-to-cart',methods=['POST'])
+def aad_to_cart():
+    id=int(request.form['id'])
+    print(type(user_name))
+    user_cart.add_to_cart(username=user_name,product_id=id)
+    return cart()
 
 
-# @app.route('/cart')
-# def cart():
-#     # index_id=df['id'].values
-#     # # index_img=df['img'].values
-#     # index_price=df['price'].values
-#     # index_sector=df['sector'].values
-#     # index_area=df['built_up_area'].values
-#     # index_bedroom=df['bedRoom']
-#     # index_bathroom=df['bathroom'].values
-#     # index_rate=np.round((10000000*df['price'])/df['built_up_area'],0).values
-#     # n=df.shape[0]
-#     global status
-#     index_id=user_cart.user_cart(user_name=user_name)
-#     index_img=[]
-#     index_price=[]
-#     index_sector=[]
-#     index_area=[]
-#     index_bedroom=[]
-#     index_bathroom=[]
-#     index_rate=[]
-#     for i in index_id:
-#         index_img.append(df.img.values[i-1])
-#         index_price.append(df.price.values[i-1])
-#         index_sector.append(df.sector.values[i-1])
-#         index_area.append(df.built_up_area.values[i-1])
-#         index_bedroom.append(df.bedRoom.values[i-1])
-#         index_bathroom.append(df.bathroom.values[i-1])
-#         index_rate.append(np.round((10000000*df['price'].values[i])/df['built_up_area'].values[i],0))
-#     n=len(index_id)
+@app.route('/cart')
+def cart():
+    # index_id=df['id'].values
+    # # index_img=df['img'].values
+    # index_price=df['price'].values
+    # index_sector=df['sector'].values
+    # index_area=df['built_up_area'].values
+    # index_bedroom=df['bedRoom']
+    # index_bathroom=df['bathroom'].values
+    # index_rate=np.round((10000000*df['price'])/df['built_up_area'],0).values
+    # n=df.shape[0]
+    global status
+    index_id=user_cart.user_cart(user_name=user_name)
+    index_img=[]
+    index_price=[]
+    index_sector=[]
+    index_area=[]
+    index_bedroom=[]
+    index_bathroom=[]
+    index_rate=[]
+    for i in index_id:
+        index_img.append(df.img.values[i-1])
+        index_price.append(df.price.values[i-1])
+        index_sector.append(df.sector.values[i-1])
+        index_area.append(df.built_up_area.values[i-1])
+        index_bedroom.append(df.bedRoom.values[i-1])
+        index_bathroom.append(df.bathroom.values[i-1])
+        index_rate.append(np.round((10000000*df['price'].values[i])/df['built_up_area'].values[i],0))
+    n=len(index_id)
 
-#     return render_template('cart.html',img_list=index_img,n=n,index_area=index_area,index_id=index_id,index_bedroom=index_bedroom,index_price=index_price,index_sector=index_sector,index_rate=index_rate,index_bathroom=index_bathroom,user=user_name,status=status)
+    return render_template('cart.html',img_list=index_img,n=n,index_area=index_area,index_id=index_id,index_bedroom=index_bedroom,index_price=index_price,index_sector=index_sector,index_rate=index_rate,index_bathroom=index_bathroom,user=user_name,status=status)
 
 @app.route('/prediction', methods=['POST'])
 def redirect_page():
